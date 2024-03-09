@@ -6,7 +6,6 @@
     <title>Proxy</title>
     <style>
         body {
-            background-color: #f0f0f0;
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
@@ -15,6 +14,7 @@
             height: 100vh;
             margin: 0;
             padding: 20px;
+            background-color: #f0f0f0;
         }
         h1 {
             margin-bottom: 20px;
@@ -58,17 +58,19 @@
 
     <div class="search-container">
         <input type="text" placeholder="Enter URL">
-        <button onclick="proxy()">Go</button>
+        <button onclick="getSite()">Go</button>
     </div>
 
     <script>
-        function proxy() {
-            const input = document.querySelector('input[type="text"]');
-            const url = input.value;
+        function getSite() {
+            let inputValue = document.querySelector('input').value;
 
-            if (url.trim() !== "") {
-                window.location.href = "/proxy?url=" + encodeURIComponent(url);
+            if (!inputValue.startsWith('http://') && !inputValue.startsWith('https://')) {
+                inputValue = 'http://' + inputValue;
             }
+
+            const encodedValue = btoa(inputValue);
+            window.location.href = "/web/_" + encodedValue + '_/';
         }
     </script>
 </body>
